@@ -1,0 +1,50 @@
+
+<div class="canvas"
+     #canvas
+     (dragover)="onCanvasDragOver($event)"
+     (drop)="onCanvasDrop($event)"
+     (pointermove)="onPointerMove($event)"
+     (pointerup)="onPointerUp($event)"
+     (pointercancel)="onPointerUp($event)">
+
+  <div *ngFor="let s of shapes"
+       class="shape"
+       [attr.data-id]="s.id"
+       [ngClass]="s.kind"
+       [style.--w.px]="s.w"
+       [style.--h.px]="s.h"
+       [style.background]="s.color"
+       [style.transform]="toTransform(s)"
+       (pointerdown)="onShapePointerDown($event, s)">
+
+    <!-- corner handles (solo se resizable) -->
+    <ng-container *ngIf="caps(s).resizable">
+      <div class="handle resize tl" (pointerdown)="onResize($event,s,'tl')"></div>
+      <div class="handle resize tr" (pointerdown)="onResize($event,s,'tr')"></div>
+      <div class="handle resize bl" (pointerdown)="onResize($event,s,'bl')"></div>
+      <div class="handle resize br" (pointerdown)="onResize($event,s,'br')"></div>
+    </ng-container>
+
+    <!-- top inset handles (solo trapezoid) -->
+    <ng-container *ngIf="caps(s).editableTopInset">
+      <div class="handle edge t-left"  (pointerdown)="onTopInset($event,s,'left')"></div>
+      <div class="handle edge t-right" (pointerdown)="onTopInset($event,s,'right')"></div>
+    </ng-container>
+
+    <!-- rotate (se rotatable) -->
+    <div *ngIf="caps(s).rotatable" class="handle rotate" (pointerdown)="onRotate($event,s)"></div>
+  </div>
+
+  <div class="hint">Trascina una figura dal carosello qui sotto. Poi drag/resize/rotate (se consentito). Snap attivo.</div>
+</div>
+
+<!-- Carosello -->
+<div class="palette">
+  <div *ngFor="let p of palette"
+       class="pal-item"
+       [ngClass]="p.kind"
+       draggable="true"
+       (dragstart)="onPaletteDragStart($event, p)">
+    {{ p.kind }}
+  </div>
+</div>

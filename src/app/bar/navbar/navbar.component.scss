@@ -80,6 +80,22 @@
 
 /* ---------- Responsive (opzionale) ---------- */
 @media (max-width: 768px) {
-  .desktop-navbar { height: 56px; }
-  .mobile-navbar mat-sidenav { width: 180px; }
+  .desktop-navbar { 
+    height: 56px;
+   }
+  .mobile-navbar mat-sidenav { 
+    width: 180px;
+   }
+}
+
+.app-logo {
+  margin-top: 8px;
+  width: 60px;
+  height: auto;
+}
+
+.app-logo-mobile {
+  margin-top: 8px !important;
+  width: 50px !important;
+  height: auto !important;
 }

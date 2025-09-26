@@ -1,0 +1,59 @@
+
+.canvas {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  background:
+    linear-gradient(transparent 31px, rgba(0,0,0,.05) 32px),
+    linear-gradient(90deg, transparent 31px, rgba(0,0,0,.05) 32px);
+  background-size: 32px 32px;
+}
+
+.shape {
+  position: absolute;
+  width: var(--w);
+  height: var(--h);
+  transform-origin: 0 0;
+  border: 1px solid #111;
+  border-radius: 8px;
+}
+
+.shape.trapezoid { clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); }
+.shape.tileHex   { clip-path: polygon(12.5% 0%, 87.5% 0%, 100% 50%, 87.5% 100%, 12.5% 100%, 0% 50%); }
+
+.handle {
+  position: absolute;
+  width: 12px; height: 12px;
+  background: #fff;
+  border: 1px solid #111;
+  border-radius: 50%;
+}
+.handle.resize.tl { left:-6px; top:-6px; cursor: nwse-resize; }
+.handle.resize.tr { right:-6px; top:-6px; cursor: nesw-resize; }
+.handle.resize.bl { left:-6px; bottom:-6px; cursor: nesw-resize; }
+.handle.resize.br { right:-6px; bottom:-6px; cursor: nwse-resize; }
+
+.handle.edge.t-left  { top:-6px; left:20%; transform: translateX(-50%); cursor: ew-resize; }
+.handle.edge.t-right { top:-6px; left:80%; transform: translateX(-50%); cursor: ew-resize; }
+
+.handle.rotate { left: 50%; top: -28px; transform: translateX(-50%); cursor: grab; }
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.pal-item {
+  border: 1px dashed #9ca3af; border-radius: 8px; padding: 12px;
+  text-align: center; cursor: grab; background: #f9fafb;
+}
+.pal-item.rect      { background: #e6f0ff; }
+.pal-item.trapezoid { background: #fff3e0; }
+.pal-item.tileHex   { background: #e8fff5; }
+
+.hint { position: absolute; left: 8px; bottom: 8px; font-size: 12px; color: #6b7280; }

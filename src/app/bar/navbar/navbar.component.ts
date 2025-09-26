@@ -7,6 +7,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -31,7 +33,7 @@ export class NavbarComponent {
 
   isMobile = false;
 
-  constructor() {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     
     if (isPlatformBrowser(this.platformId)) {
       this.breakpointObserver
@@ -39,5 +41,11 @@ export class NavbarComponent {
         .pipe(takeUntilDestroyed())
         .subscribe(({ matches }) => (this.isMobile = matches));
     }
+
+    iconRegistry.addSvgIcon(
+      'app_logo',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/chorely.svg')
+    );
   }
+
 }
